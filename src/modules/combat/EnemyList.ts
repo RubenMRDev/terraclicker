@@ -295,7 +295,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Gingerbread_Man',
     health: 9000,
     drops: [
-      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.2, affectedByLuck: true },
+      { itemId: 'Present', min: 1, max: 1, chance: 0.2, affectedByLuck: true },
     ],
     coins: [7600, 15200],
     weight: 22,
@@ -306,7 +306,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Zombie_Elf',
     health: 10000,
     drops: [
-      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.2, affectedByLuck: true },
+      { itemId: 'Present', min: 1, max: 1, chance: 0.2, affectedByLuck: true },
     ],
     coins: [8200, 16400],
     weight: 20,
@@ -317,7 +317,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Elf_Archer',
     health: 11000,
     drops: [
-      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.22, affectedByLuck: true },
+      { itemId: 'Present', min: 1, max: 1, chance: 0.22, affectedByLuck: true },
     ],
     coins: [8800, 17600],
     weight: 18,
@@ -328,7 +328,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Elf_Copter',
     health: 13000,
     drops: [
-      { itemId: 'Ectoplasm', min: 1, max: 3, chance: 0.25, affectedByLuck: true },
+      { itemId: 'Present', min: 1, max: 2, chance: 0.25, affectedByLuck: true },
     ],
     coins: [10000, 20000],
     weight: 14,
@@ -339,7 +339,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Present_Mimic',
     health: 18000,
     drops: [
-      { itemId: 'Ectoplasm', min: 2, max: 4, chance: 0.4, affectedByLuck: true },
+      { itemId: 'Present', min: 1, max: 3, chance: 0.6, affectedByLuck: true },
       { itemId: 'Christmas_Tree_Sword', min: 1, max: 1, chance: 0.04, affectedByLuck: true },
     ],
     coins: [16000, 32000],
@@ -351,7 +351,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Krampus',
     health: 24000,
     drops: [
-      { itemId: 'Ectoplasm', min: 3, max: 6, chance: 0.6, affectedByLuck: true },
+      { itemId: 'Present', min: 2, max: 4, chance: 0.8, affectedByLuck: true },
       { itemId: 'Elf_Melter', min: 1, max: 1, chance: 0.06, affectedByLuck: true },
     ],
     coins: [22000, 44000],
@@ -364,7 +364,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     health: 40000,
     drops: [
       { itemId: 'Razorpine', min: 1, max: 1, chance: 0.15, affectedByLuck: true },
-      { itemId: 'Ectoplasm', min: 4, max: 8, chance: 1 },
+      { itemId: 'Present', min: 3, max: 6, chance: 1 },
     ],
     coins: [40000, 80000],
     weight: 3,
@@ -377,7 +377,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     drops: [
       { itemId: 'Chain_Gun', min: 1, max: 1, chance: 0.12, affectedByLuck: true },
       { itemId: 'Elf_Melter', min: 1, max: 1, chance: 0.12, affectedByLuck: true },
-      { itemId: 'Ectoplasm', min: 4, max: 8, chance: 1 },
+      { itemId: 'Present', min: 3, max: 6, chance: 1 },
     ],
     coins: [48000, 96000],
     weight: 3,
@@ -710,7 +710,8 @@ export const EnemyList: Record<string, EnemyDef> = {
     name: 'Guiverno',
     sprite: 'Wyvern',
     health: 7000,
-    drops: [{ itemId: 'Soul_of_Flight', min: 2, max: 5, chance: 0.8, affectedByLuck: true }],
+    drops: [
+      { itemId: 'Harpy_Wings', min: 1, max: 1, chance: 0.04, affectedByLuck: true },{ itemId: 'Soul_of_Flight', min: 2, max: 5, chance: 0.8, affectedByLuck: true }],
     coins: [2800, 5600],
     weight: 8,
   },
@@ -835,16 +836,20 @@ export const EnemyList: Record<string, EnemyDef> = {
     name: 'Mago rúnico',
     sprite: 'Rune_Wizard',
     health: 11000,
-    drops: [{ itemId: 'Ectoplasm', min: 1, max: 3, chance: 0.6, affectedByLuck: true }],
+    drops: [
+      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.18, affectedByLuck: true },{ itemId: 'Ectoplasm', min: 1, max: 3, chance: 0.6, affectedByLuck: true }],
     coins: [7000, 14000],
     weight: 6,
   },
+  // El ectoplasma sale de aqui, de la Mazmorra de Hardmode, que es de donde sale
+  // en Terraria: lo pide el Regalo travieso de la Luna de escarcha.
   diabolist: {
     id: 'diabolist',
     name: 'Diabolista',
     sprite: 'Diabolist',
     health: 9500,
     drops: [
+      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.18, affectedByLuck: true },
       { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.5, affectedByLuck: true },
       { itemId: 'Death_Sickle', min: 1, max: 1, chance: 0.02, affectedByLuck: true },
     ],
@@ -857,6 +862,7 @@ export const EnemyList: Record<string, EnemyDef> = {
     sprite: 'Blue_Armored_Bones',
     health: 10000,
     drops: [
+      { itemId: 'Ectoplasm', min: 1, max: 2, chance: 0.18, affectedByLuck: true },
       { itemId: 'Bone', min: 8, max: 18, chance: 0.7 },
       { itemId: 'Ectoplasm', min: 1, max: 1, chance: 0.25, affectedByLuck: true },
     ],

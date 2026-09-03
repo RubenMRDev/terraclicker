@@ -202,7 +202,7 @@ export const RecipeList: RecipeDef[] = [
   recipe('Solar_Tablet', 1, 'Demon_Altar', [['Solar_Tablet_Fragment', 8]]),
   recipe('Naughty_Present', 1, 'Mythril_Anvil', [
     ['Silk', 20],
-    ['Ectoplasm', 5],
+    ['Ectoplasm', 8],
     ['Soul_of_Fright', 5],
   ]),
   recipe('Martian_Probe', 1, 'Mythril_Anvil', [

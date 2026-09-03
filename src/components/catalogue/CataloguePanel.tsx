@@ -64,7 +64,6 @@ export function CataloguePanel() {
 
   return (
     <Panel
-      title="Catalogo"
       aside={
         tab === 'items'
           ? `${discoveredItems}/${items.length} objetos`

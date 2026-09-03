@@ -9,8 +9,22 @@ export interface ZoneDef {
   icon: string;
   /** Fondo de bioma sacado de la wiki, en public/assets/backgrounds. */
   background: string;
+  /**
+   * El fondo es una textura de mapa pequena (115x65 y parecidos) y hay que
+   * repetirla, no estirarla: a pantalla completa cada pixel de origen se
+   * convertiria en un bloque de 14 px. Los fondos pintados de 1024x838 no lo
+   * llevan y se estiran a cover.
+   */
+  tiled?: boolean;
   /** Tinte que se superpone al fondo para que el sprite del objetivo destaque. */
   palette: [string, string];
+  /**
+   * Color solido del bioma. Es lo que pinta el borde y el acento de TODAS las
+   * placas del HUD mientras estas aqui: en el Infierno la interfaz es roja, en
+   * las Cavernas de piedra, en la Luna violeta. El fondo de bioma ocupa la
+   * pantalla entera, asi que el color tiene que salir de el, no de la marca.
+   */
+  accent: string;
   /** Ids de NodeList que pueden aparecer. */
   nodes: string[];
   /** Ids de EnemyList que pueden aparecer. */
@@ -52,6 +66,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Acorn',
     background: 'Forest_background_18',
     palette: ['rgba(63,109,58,0.55)', 'rgba(29,58,38,0.75)'],
+    accent: '#78bd52',
     nodes: ['dirt', 'stone', 'tree', 'mushroom_patch', 'daybloom_patch', 'fallen_star_node'],
     enemies: ['green_slime', 'blue_slime', 'demon_eye', 'zombie', 'goblin_scout'],
     enemyRate: 0.4,
@@ -66,6 +81,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Cactus',
     background: 'Desert_background_3DS',
     palette: ['rgba(201,165,92,0.35)', 'rgba(107,79,40,0.7)'],
+    accent: '#e0b95f',
     nodes: [
       'sand',
       'hardened_sand',
@@ -89,6 +105,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Seashell',
     background: 'Ocean_background_1',
     palette: ['rgba(46,116,168,0.4)', 'rgba(12,38,72,0.75)'],
+    accent: '#4fa6dd',
     nodes: ['sand', 'coral_reef', 'seashell_bed'],
     enemies: ['crab', 'squid', 'blue_jellyfish', 'green_jellyfish', 'pink_jellyfish', 'shark'],
     enemyRate: 0.55,
@@ -102,7 +119,9 @@ export const ZoneList: ZoneDef[] = [
       'Las primeras cuevas: tierra, piedra y los cuatro metales basicos. Con suerte encuentras un altar demoniaco.',
     icon: 'Copper_Ore',
     background: 'Underground_background_1',
+    tiled: true,
     palette: ['rgba(90,68,51,0.45)', 'rgba(36,26,19,0.8)'],
+    accent: '#b07e50',
     nodes: [
       'dirt',
       'stone',
@@ -130,7 +149,9 @@ export const ZoneList: ZoneDef[] = [
       'Mucho mas abajo. Casi nada de piedra suelta y en cambio plata, tungsteno, oro, platino y las gemas grandes.',
     icon: 'Gold_Ore',
     background: 'Cavern_background_4',
+    tiled: true,
     palette: ['rgba(74,74,94,0.4)', 'rgba(22,22,31,0.82)'],
+    accent: '#9aa0c6',
     nodes: [
       'stone',
       'silver_vein',
@@ -159,7 +180,9 @@ export const ZoneList: ZoneDef[] = [
       'Tundra helada. El aguanieve esconde plata y oro, y los vikingos no muertos no perdonan.',
     icon: 'Snow_Block',
     background: 'Map_Background_Ice',
+    tiled: true,
     palette: ['rgba(169,198,222,0.3)', 'rgba(61,85,112,0.7)'],
+    accent: '#a9d6f2',
     nodes: ['snow', 'ice', 'boreal_tree', 'shiverthorn_patch', 'slush', 'life_crystal_node'],
     enemies: ['ice_slime', 'zombie_eskimo', 'undead_viking', 'wolf', 'ice_bat', 'snow_flinx'],
     enemyRate: 0.4,
@@ -174,6 +197,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Jungle_Spores',
     background: 'Jungle_background_7',
     palette: ['rgba(47,122,69,0.45)', 'rgba(15,44,28,0.8)'],
+    accent: '#63c063',
     nodes: [
       'mahogany_tree',
       'jungle_spore_patch',
@@ -206,6 +230,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Demonite_Ore',
     background: 'Corruption_background_1',
     palette: ['rgba(75,58,99,0.45)', 'rgba(21,15,32,0.82)'],
+    accent: '#9b6fd0',
     nodes: [
       'ebonstone',
       'demonite_vein',
@@ -230,7 +255,9 @@ export const ZoneList: ZoneDef[] = [
       'El crater que cayo tras derrotar al Ojo. Metal del cielo y cabezas que te persiguen.',
     icon: 'Meteorite',
     background: 'Map_Background_Space',
+    tiled: true,
     palette: ['rgba(107,74,107,0.4)', 'rgba(36,20,40,0.8)'],
+    accent: '#c47ac4',
     nodes: ['meteorite_vein', 'ash_from_impact', 'stone', 'mana_crystal_node'],
     enemies: ['meteor_head'],
     enemyRate: 0.4,
@@ -247,7 +274,9 @@ export const ZoneList: ZoneDef[] = [
       'Pasillos de ladrillo azul llenos de huesos con ganas. Despues de Golem, aqui se reunen los cultistas.',
     icon: 'Blue_Brick',
     background: 'Map_Background_Dungeon',
+    tiled: true,
     palette: ['rgba(58,74,122,0.4)', 'rgba(17,24,48,0.82)'],
+    accent: '#5f7fd4',
     nodes: ['blue_brick', 'bone_block', 'life_crystal_node'],
     enemies: [
       'angry_bones',
@@ -273,6 +302,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Hellstone',
     background: 'Underworld_background_1',
     palette: ['rgba(140,47,31,0.42)', 'rgba(42,12,8,0.8)'],
+    accent: '#e0603f',
     nodes: [
       'hellstone_vein',
       'obsidian_chunk',
@@ -297,6 +327,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Crystal_Shard',
     background: 'Hallow_background_1',
     palette: ['rgba(214,158,222,0.32)', 'rgba(70,44,110,0.72)'],
+    accent: '#e79ce8',
     nodes: ['pearlstone', 'crystal_shard_node', 'cobalt_vein', 'palladium_vein', 'life_crystal_node'],
     enemies: [
       'pixie',
@@ -320,6 +351,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Mythril_Ore',
     background: 'Corruption_background_1',
     palette: ['rgba(75,58,99,0.5)', 'rgba(14,10,22,0.86)'],
+    accent: '#7d55b5',
     nodes: ['mythril_vein', 'orichalcum_vein', 'ebonstone', 'demonite_vein', 'life_crystal_node'],
     enemies: [
       'corruptor',
@@ -345,7 +377,9 @@ export const ZoneList: ZoneDef[] = [
       'Bajo la jungla se esconden la adamantita, el titanio y la clorofita. Y Plantera, que no quiere visitas.',
     icon: 'Chlorophyte_Ore',
     background: 'Map_Background_Underground_Jungle',
+    tiled: true,
     palette: ['rgba(47,122,69,0.4)', 'rgba(10,32,20,0.86)'],
+    accent: '#4fae74',
     nodes: [
       'adamantite_vein',
       'titanium_vein',
@@ -370,7 +404,9 @@ export const ZoneList: ZoneDef[] = [
       'Se abre con la llave que suelta Plantera. Ladrillo que solo cede ante la sierra de Golem.',
     icon: 'Lihzahrd_Brick',
     background: 'Map_Background_Dungeon',
+    tiled: true,
     palette: ['rgba(150,86,40,0.38)', 'rgba(40,18,10,0.86)'],
+    accent: '#d08a42',
     nodes: ['lihzahrd_brick_node'],
     enemies: ['lihzahrd', 'flying_snake'],
     enemyRate: 0.65,
@@ -387,7 +423,9 @@ export const ZoneList: ZoneDef[] = [
       'Lo que queda cuando el Senor de la Luna cae. Luminita, los cuatro fragmentos y nada que te de miedo.',
     icon: 'Luminite',
     background: 'Map_Background_Space',
+    tiled: true,
     palette: ['rgba(60,40,120,0.42)', 'rgba(6,4,18,0.9)'],
+    accent: '#8f6ee8',
     nodes: [
       'luminite_vein',
       'solar_fragment_node',
@@ -416,6 +454,7 @@ export const ZoneList: ZoneDef[] = [
     icon: 'Solar_Fragment',
     background: 'Underworld_background_2',
     palette: ['rgba(190,70,30,0.45)', 'rgba(52,10,6,0.85)'],
+    accent: '#f07a37',
     nodes: [],
     enemies: ['drakomire', 'corite', 'sroller', 'crawltipede', 'selenian'],
     enemyRate: 1,
@@ -430,7 +469,9 @@ export const ZoneList: ZoneDef[] = [
     description: 'Un ojo de tormenta que no se mueve. Mil bichos y el escudo cae.',
     icon: 'Vortex_Fragment',
     background: 'Map_Background_Space',
+    tiled: true,
     palette: ['rgba(40,150,120,0.4)', 'rgba(4,30,28,0.88)'],
+    accent: '#3fc7a8',
     nodes: [],
     enemies: ['storm_diver', 'vortexian', 'alien_queen'],
     enemyRate: 1,
@@ -445,7 +486,9 @@ export const ZoneList: ZoneDef[] = [
     description: 'Colores que no existen, en forma de columna. Mil bichos y el escudo cae.',
     icon: 'Nebula_Fragment',
     background: 'Map_Background_Space',
+    tiled: true,
     palette: ['rgba(170,50,150,0.42)', 'rgba(30,4,34,0.88)'],
+    accent: '#e04fbe',
     nodes: [],
     enemies: ['nebula_floater_lunar', 'brain_suckler', 'predictor', 'evolution_beast'],
     enemyRate: 1,
@@ -460,7 +503,9 @@ export const ZoneList: ZoneDef[] = [
     description: 'Hecho de la misma cosa que las estrellas. Mil bichos y el escudo cae.',
     icon: 'Stardust_Fragment',
     background: 'Map_Background_Space',
+    tiled: true,
     palette: ['rgba(60,110,200,0.4)', 'rgba(6,14,44,0.9)'],
+    accent: '#6f9df0',
     nodes: [],
     enemies: ['star_cell', 'flow_invader', 'twinkle_popper', 'milkyway_weaver', 'stargazer'],
     enemyRate: 1,

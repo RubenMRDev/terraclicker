@@ -148,7 +148,7 @@ export function CraftingPanel() {
   );
 
   return (
-    <Panel title="Fabricacion" aside={`${craftableNow} recetas listas ahora mismo`}>
+    <Panel aside={`${craftableNow} recetas listas ahora mismo`}>
       <div className="row row--wrap" style={{ marginBottom: 10 }}>
         <input
           className="search"

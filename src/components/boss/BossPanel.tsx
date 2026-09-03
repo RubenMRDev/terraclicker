@@ -65,7 +65,7 @@ export function BossPanel() {
     // La pelea ocurre en la zona del jefe, asi que hereda su fondo de bioma.
     const arena = g.zones.all.find((zone) => zone.id === boss.zoneId);
     return (
-      <Panel title={boss.name} aside={bosses.phase?.name}>
+      <Panel>
         <div className="bossfight">
           <div
             className="bossfight__arena"
@@ -184,7 +184,7 @@ export function BossPanel() {
 
   return (
     <>
-      <Panel title="Jefes" aside={`${cleared}/${bosses.all.length} derrotados`}>
+      <Panel aside={`${cleared}/${bosses.all.length} derrotados`}>
         <div className="tabs">
           <button
             className={`tab${filter === 'all' ? ' tab--active' : ''}`}

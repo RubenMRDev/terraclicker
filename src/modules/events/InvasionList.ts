@@ -70,7 +70,7 @@ export const InvasionList: InvasionDef[] = [
     rewards: [
       { itemId: 'Tattered_Cloth', min: 12, max: 20, chance: 1 },
       { itemId: 'Goblin_Battle_Standard', min: 1, max: 1, chance: 1 },
-      { itemId: 'Harpy_Wings', min: 1, max: 1, chance: 0.35, affectedByLuck: true },
+      { itemId: 'Shadowflame_Bow', min: 1, max: 1, chance: 0.35, affectedByLuck: true },
     ],
     coins: [30_000, 60_000],
   },
@@ -98,8 +98,8 @@ export const InvasionList: InvasionDef[] = [
     ],
     rewards: [
       { itemId: 'Snow_Globe', min: 1, max: 1, chance: 1 },
-      { itemId: 'Blizzard_Staff', min: 1, max: 1, chance: 0.5, affectedByLuck: true },
-      { itemId: 'Soul_of_Light', min: 10, max: 20, chance: 1 },
+      { itemId: 'Present', min: 10, max: 20, chance: 1 },
+      { itemId: 'Snowball_Cannon', min: 1, max: 1, chance: 0.4, affectedByLuck: true },
     ],
     coins: [200_000, 400_000],
   },
@@ -142,7 +142,7 @@ export const InvasionList: InvasionDef[] = [
     name: 'Luna de escarcha',
     sprite: 'Ice_Queen',
     description:
-      'La version larga de la Navidad: elfos, regalos con dientes, Krampus, el Grito eterno y Santa-NK1, y al final la Reina de Hielo.',
+      'La version larga de la Navidad: elfos, regalos con dientes, Krampus, el Grito eterno y Santa-NK1, y al final la Reina de Hielo. Todo suelta regalos, y cada regalo son monedas.',
     unlock: [{ kind: 'bossDefeated', bossId: 'plantera' }],
     triggerItem: 'Naughty_Present',
     waves: [
@@ -166,7 +166,7 @@ export const InvasionList: InvasionDef[] = [
     finalBoss: 'ice_queen',
     rewards: [
       { itemId: 'Naughty_Present', min: 1, max: 1, chance: 1 },
-      { itemId: 'Ectoplasm', min: 20, max: 40, chance: 1 },
+      { itemId: 'Present', min: 20, max: 40, chance: 1 },
       { itemId: 'Chain_Gun', min: 1, max: 1, chance: 0.3, affectedByLuck: true },
       { itemId: 'Elf_Melter', min: 1, max: 1, chance: 0.3, affectedByLuck: true },
     ],

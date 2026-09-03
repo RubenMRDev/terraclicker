@@ -3,7 +3,7 @@
  */
 
 export const SAVE_KEY = 'terraclicker-save';
-export const SAVE_VERSION = 4;
+export const SAVE_VERSION = 5;
 
 /** El bucle de juego corre a 20 ticks por segundo. */
 export const TICKS_PER_SECOND = 20;
@@ -90,8 +90,9 @@ export const MAX_LIFE_FRUITS = 20;
 export const STARTING_COINS = 0;
 
 /**
- * Autoclicker: clicks por segundo cuando esta encendido. Veinte es lo que da un
- * humano insistente con raton bueno, asi que no rompe el balance, solo la mano.
+ * Autoclicker: clicks por segundo. Siempre encendido en la zona, sin ajuste que
+ * lo apague. Veinte es lo que da un humano insistente con un raton bueno, asi
+ * que no rompe el balance; lo que se ahorra es la mano.
  */
 export const AUTO_CLICKS_PER_SECOND = 20;
 

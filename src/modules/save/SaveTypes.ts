@@ -12,8 +12,6 @@ export interface SettingsSave {
   showDamageNumbers: boolean;
   showLootFeed: boolean;
   autoTravelOnUnlock: boolean;
-  /** Autoclicker de zona, a 20 clicks por segundo. */
-  autoClick: boolean;
   /** Autocombate en bossfights: pega solo y bebe pociones. */
   autoBattle: boolean;
   /** Animaciones de los paneles. Se puede apagar si molestan. */
@@ -39,7 +37,6 @@ export const DEFAULT_SETTINGS: SettingsSave = {
   showDamageNumbers: true,
   showLootFeed: true,
   autoTravelOnUnlock: false,
-  autoClick: false,
   autoBattle: false,
   animations: true,
 };

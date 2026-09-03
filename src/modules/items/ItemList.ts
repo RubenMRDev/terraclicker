@@ -564,13 +564,14 @@ const seed: ItemSeed[] = [
 
   // ---------------------------------------------------------------- materiales de evento
   { id: 'Tattered_Cloth', name: 'Tela andrajosa', category: ItemCategory.Material, description: 'De los estandartes de los duendes. Huele a duende.', sellPrice: 500 },
+  { id: 'Present', name: 'Regalo', category: ItemCategory.Consumable, description: 'Lo suelta todo lo que se mueve en la Luna de escarcha. Abrelo: dentro hay monedas.', sellPrice: 0, consumable: { kind: 'coins', amount: 40000 } },
   { id: 'Solar_Tablet_Fragment', name: 'Fragmento de tableta solar', category: ItemCategory.Material, description: 'Ocho arman una tableta solar entera.', sellPrice: 4000 },
   { id: 'Martian_Conduit_Plating', name: 'Placa de conducto marciano', category: ItemCategory.Material, description: 'Metal alienigena. Zumba al tocarlo.', sellPrice: 6000 },
 
   // ---------------------------------------------------------------- alas
-  { id: 'Harpy_Wings', name: 'Alas de arpia', category: ItemCategory.Accessory, description: 'Las primeras alas de verdad.', sellPrice: 60000, slot: EquipmentSlot.Accessory1, stats: { autoDps: 200, regen: 2 } },
+  { id: 'Harpy_Wings', name: 'Alas de arpia', category: ItemCategory.Accessory, description: 'Las primeras alas de verdad. Se las quitas a un wyvern del Sagrado.', sellPrice: 60000, slot: EquipmentSlot.Accessory1, stats: { autoDps: 200, regen: 2 } },
   { id: 'Mothron_Wings', name: 'Alas de Mothron', category: ItemCategory.Accessory, description: 'Del jefe del eclipse. Las mejores del Hardmode medio.', sellPrice: 220000, slot: EquipmentSlot.Accessory1, stats: { autoDps: 700, damage: 200, defense: 4 } },
-  { id: 'Broken_Bat_Wing', name: 'Ala de murcielago roto', category: ItemCategory.Material, description: 'De los vampiros del eclipse. Sirve para alas.', sellPrice: 25000 },
+  { id: 'Broken_Bat_Wing', name: 'Ala de murcielago roto', category: ItemCategory.Material, description: 'De los vampiros del eclipse. No sirve para nada mas que para venderla, y vale mucho.', sellPrice: 25000 },
 
   // ---------------------------------------------------------------- botin del ejercito de duendes
   { id: 'Shadowflame_Knife', name: 'Cuchillo de llama sombria', category: ItemCategory.Weapon, description: 'Del hechicero duende. Arde en negro.', sellPrice: 20000, slot: EquipmentSlot.Weapon, stats: { damage: 120, autoDps: 80 } },

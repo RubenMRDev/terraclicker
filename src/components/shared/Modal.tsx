@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { useGameChannel } from '../../hooks/useGame';
+import { FramedContext } from './Panel';
 
 interface ModalProps {
   title: ReactNode;
@@ -16,6 +17,12 @@ interface ModalProps {
   level?: number;
   /** Sprite que acompana al titulo. */
   icon?: ReactNode;
+  /**
+   * Si se puede cerrar. En false no hay boton, ni Escape, ni click fuera: lo usa
+   * la pantalla de bossfight, de la que no se sale por accidente a mitad de un
+   * jefe.
+   */
+  canClose?: boolean;
 }
 
 /**
@@ -76,6 +83,7 @@ export function Modal({
   width = 640,
   level = 0,
   icon,
+  canClose = true,
 }: ModalProps) {
   const g = useGameChannel('settings');
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -88,11 +96,13 @@ export function Modal({
   }, [onClose]);
 
   useEffect(() => {
-    const entry = { close: () => closeHandler.current() };
+    // Un modal que no se puede cerrar entra en la pila igual (para el bloqueo
+    // del scroll) pero con un cierre que no hace nada, asi Escape no lo tumba.
+    const entry = { close: () => (canClose ? closeHandler.current() : undefined) };
     pushModal(entry);
     closeRef.current?.focus();
     return () => popModal(entry);
-  }, []);
+  }, [canClose]);
 
   const animated = g.save.settings.animations;
 
@@ -100,7 +110,7 @@ export function Modal({
     <div
       className={`modal__backdrop${animated ? ' modal__backdrop--in' : ''}`}
       style={{ zIndex: 100 + level * 10 }}
-      onClick={onClose}
+      onClick={canClose ? onClose : undefined}
       role="presentation"
     >
       <div
@@ -119,12 +129,16 @@ export function Modal({
           </span>
           <span className="row">
             {aside ? <small>{aside}</small> : null}
-            <button ref={closeRef} className="btn btn--small" onClick={onClose}>
-              Cerrar
-            </button>
+            {canClose ? (
+              <button ref={closeRef} className="btn btn--small" onClick={onClose}>
+                Cerrar
+              </button>
+            ) : null}
           </span>
         </header>
-        <div className="modal__body">{children}</div>
+        <div className="modal__body">
+          <FramedContext.Provider value>{children}</FramedContext.Provider>
+        </div>
       </div>
     </div>
   );

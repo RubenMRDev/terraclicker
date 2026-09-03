@@ -56,7 +56,7 @@ export function InventoryPanel() {
   }
 
   return (
-    <Panel title="Mochila" aside={`${entries.length} tipos · ${formatNumber(g.inventory.totalItems())} objetos`}>
+    <Panel aside={`${entries.length} tipos · ${formatNumber(g.inventory.totalItems())} objetos`}>
       {item && current ? (
         <div className="detail" style={{ marginBottom: 14 }}>
           <div className="detail__head">

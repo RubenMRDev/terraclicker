@@ -178,15 +178,17 @@ export class Game {
   }
 
   /**
-   * Autoclicker y autocombate. El primero pulsa el objetivo de la zona a
-   * AUTO_CLICKS_PER_SECOND, y el segundo hace lo mismo dentro de una bossfight y
-   * ademas bebe una pocion cuando la vida baja del umbral. Los dos son opcion,
-   * apagados por defecto: son comodidad, no una mecanica.
+   * Autoclicker y autocombate. En la zona el autoclicker esta siempre encendido
+   * a AUTO_CLICKS_PER_SECOND y no hay ajuste que lo apague: picar piedra a mano
+   * no es la parte interesante del juego, y el click manual suma encima.
+   *
+   * En una bossfight sigue siendo opcion, apagada por defecto, porque ahi lo
+   * automatico no solo pega: tambien se bebe tus pociones y te puede dejar a
+   * medias contra el Senor de la Luna, que si te mata te repite el evento.
    */
   private tickAutoClick(deltaMs: number): void {
     const fighting = this.bosses.isFighting;
-    const enabled = fighting ? this.save.settings.autoBattle : this.save.settings.autoClick;
-    if (!enabled) {
+    if (fighting && !this.save.settings.autoBattle) {
       this.autoClickCarry = 0;
       return;
     }

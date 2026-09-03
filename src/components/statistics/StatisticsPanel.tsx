@@ -15,7 +15,7 @@ export function StatisticsPanel() {
 
   return (
     <>
-      <Panel title="Estadisticas">
+      <Panel>
         <div className="stats-list">
           <div className="stats-list__row">
             <span>Tiempo jugado</span>

@@ -63,7 +63,6 @@ export function NpcsPanel() {
   return (
     <>
       <Panel
-        title="Pueblo"
         aside={`${g.npcs.housedCount}/${views.length} vecinos · ${g.npcs.houses} casa${g.npcs.houses === 1 ? '' : 's'}`}
       >
         <div className="town">
@@ -101,16 +100,16 @@ export function NpcsPanel() {
           </div>
 
           <div className="row row--wrap town__stats">
-            <span className="topbar__stat">
+            <span className="tag">
               Casas libres <b>{g.npcs.freeHouses}</b>
             </span>
             {ready.length > 0 ? (
-              <span className="topbar__stat">
+              <span className="tag">
                 Esperando casa <b>{ready.length}</b>
               </span>
             ) : null}
             {g.npcs.taxRate > 0 ? (
-              <span className="topbar__stat row">
+              <span className="tag row">
                 Impuestos <Coins amount={g.npcs.taxRate} size={13} /> /s
               </span>
             ) : null}

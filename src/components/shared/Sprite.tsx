@@ -35,7 +35,13 @@ export function Sprite({ name, size = 32, alt, className, title }: SpriteProps) 
       alt={alt ?? name}
       title={title}
       draggable={false}
-      loading="lazy"
+      /*
+       * Eager y no lazy: el Preloader ya se ha traido los 769 sprites antes de
+       * dejar jugar, asi que estan en cache y lazy solo conseguia que al
+       * recargar el HUD apareciera sin iconos durante un segundo.
+       */
+      loading="eager"
+      decoding="async"
     />
   );
 }

@@ -8,10 +8,40 @@ construido con React + TypeScript. La estructura sigue la de
 [pokeclicker](https://github.com/pokeclicker/pokeclicker): lógica de juego en clases planas
 dentro de `src/modules/`, datos en listas separadas, y la UI encima leyendo de ahí.
 
-Los 768 sprites, iconos de logro y fondos de bioma se descargan de
+Los 769 sprites, iconos de logro y fondos de bioma se descargan de
 [terraria.wiki.gg](https://terraria.wiki.gg)
 con un scraper incluido, y se precargan todos al arrancar para que ningún objetivo aparezca a
 medio cargar.
+
+## La pantalla
+
+El bioma no es una ilustración dentro de una caja: **es la pantalla**. El fondo del bioma ocupa
+la ventana entera y todo lo demás son placas translúcidas que flotan encima. **No hay scroll de
+página en ninguna pantalla**: el juego cabe en el viewport y el resto se abre y se cierra por
+delante.
+
+- El **mundo** está siempre vivo detrás de todo: el objetivo al centro, su barra de vida debajo
+  y el clic primario en toda la pantalla. El objetivo se apoya en una peana de alto fijo, así que
+  el nombre, la barra y el botón de saltar no se mueven cuando cambia el sprite.
+- Debajo del nombre de la zona va **lo que pide de herramienta frente a lo que llevas**
+  («pico hasta 200 · el tuyo 200»), en rojo cuando te falta. Es la duda con la que se viaja.
+- Fijos, sin abrir nada: la **ficha del personaje** arriba a la izquierda (daño, DPS, potencia
+  de pico y de hacha, defensa, suerte...), las **monedas** y el **equipo** a la derecha, y el
+  **dique de las zonas** abajo.
+- El resto (jefes, fabricar, pueblo, eventos, mochila, catálogo, logros, estadísticas, ajustes)
+  se abre en **modales apilables** desde el rail del borde derecho. Una bossfight abre un modal
+  que no se puede cerrar: de un jefe no se sale por accidente.
+- Cada zona trae su **color de bioma** (`ZoneDef.accent`), y ese color pinta el borde y los
+  acentos de todas las placas: en el Infierno la interfaz es roja, en las Cavernas de piedra, en
+  la Luna violeta.
+- El fondo va **desenfocado** y lo único nítido es lo que estás golpeando. Es una decisión, no un
+  apaño: los fondos de la wiki vienen en dos familias (pintados de 1024×838 y texturas de mapa de
+  115×65), y las segundas estiradas a pantalla completa salían como bloques de 14 px. Desenfocadas
+  se arreglan eso, las costuras del mosaico y la legibilidad de las cifras sobre el Sagrado o la
+  Nieve, de una vez.
+- En **móvil** el HUD no se encoge, se reorganiza: la ficha completa del personaje, el equipo y
+  las 16 zonas se abren en modal, y arriba se queda lo que se mira mientras juegas. Sigue sin
+  haber scroll de página a 400×880.
 
 La interfaz va en **Baloo 2**, servida desde `public/fonts`. Es el sustituto libre de *Andy
 Bold*, la fuente de Terraria: esa es propietaria y no se puede redistribuir, pero la familia
@@ -179,6 +209,12 @@ fauna del bioma en el que estés, así que el mundo entero está invadido y no h
 | Luna de escarcha | Plantera | 4 · 400 bichos | Reina de Hielo | el equipo navideño y ectoplasma a puñados |
 | Locura marciana | Golem | 4 · 400 bichos | Platillo marciano | el mejor equipo antes de la luminita |
 
+El botín de cada evento sale de donde saldría en Terraria: el eclipse da espadas de héroe rotas
+y fragmentos de tableta solar, la Navidad da **regalos** (que se abren y son monedas), y el
+**ectoplasma** sale de la Mazmorra de Hardmode y de ningún otro sitio, que es lo que obliga a
+bajar allí para volver a fabricar el Regalo travieso. Las alas de arpía se las quitas a un
+wyvern del Sagrado, no te las regala un ejército de duendes.
+
 Cada oleada sube la vida de sus bichos (×1, ×1,4, ×1,8...), así que la cuarta no es la primera
 repetida. La primera vez el evento **llega solo y sale gratis**; a partir de ahí hace falta su
 objeto (estandarte, bola de nieve, tableta solar, regalo travieso, sonda marciana), y cada uno
@@ -218,15 +254,28 @@ armaduras. El yunque de plomo vale exactamente igual que el de hierro.
 
 ## Comodidad
 
-En **Ajustes → Automático** hay dos interruptores, apagados por defecto:
+El **autoclicker está siempre encendido**: 20 clicks por segundo sobre el objetivo de la zona,
+sin interruptor que lo apague. Veinte es lo que da un humano insistente con un ratón bueno, así
+que no rompe el balance: lo que se ahorra es la mano. Tus clicks suman encima de los suyos, y los
+dos cuentan en las estadísticas y en los logros de clicks. Se dice en la ficha del personaje
+(fila **Auto**) para que nadie se pregunte de dónde sale el daño que cae sin tocar nada.
 
-- **Autoclicker** a 20 clicks por segundo sobre el objetivo de la zona. Veinte es lo que da un
-  humano insistente con un ratón bueno, así que no rompe el balance: solo la mano.
+En **Ajustes → Automático** queda un interruptor, apagado por defecto:
+
 - **Autocombate en bossfights**: pega solo al jefe y bebe la mejor poción curativa que lleves
-  cuando la vida baja del 45%.
+  cuando la vida baja del 45%. Sigue siendo opcional a propósito, porque ahí lo automático no
+  solo pega: también se gasta tus pociones, y perder contra el Señor de la Luna repite el evento
+  entero.
 
 Y en **Ajustes → Interfaz** se pueden apagar las animaciones de los modales, que también se
 desactivan solas con `prefers-reduced-motion`.
+
+## Diseño
+
+`PRODUCT.md` recoge la verdad de producto (usuarios, propósito, restricciones, principios) y
+`DESIGN.md` el sistema visual tal y como quedó construido. El contrato de la dirección visual
+vive como comentario HTML al principio de `<body>` en `index.html` y sobrevive al build, así que
+se puede auditar contra lo que se sirve.
 
 ## Estructura
 
@@ -263,15 +312,19 @@ src/
     wallet/                Wallet.ts
     zones/                 Zones.ts + ZoneList.ts
   components/              UI de React, una carpeta por pantalla
-    shared/Modal.tsx       modales apilables: las fichas de los vecinos y sus submenus
+    world/                 WorldStage.tsx: el mundo a pantalla completa, siempre vivo
+    hud/                   las placas que flotan encima (personaje, equipo, rail, dique)
+    shared/Modal.tsx       modales apilables: todas las pantallas y sus submenus
+    shared/Panel.tsx       dentro de un modal se queda sin marco: lo pone el modal
+  hooks/useNarrow.ts       en movil el HUD se reorganiza, no se encoge
   hooks/useGame.ts         useGameChannel(): suscribe un componente a canales
-  hooks/useUi.tsx          navegacion entre pestanas y buscador de fabricacion
+  hooks/useUi.tsx          que pantalla esta abierta y buscador de fabricacion
   Root.tsx                 pantalla de carga hasta que los sprites están listos
   styles/game.css
 ```
 
-Contenido actual: 20 zonas (16 fijas + los 4 pilares del evento), 473 objetos, 74 nodos, 132
-enemigos, 20 jefes, 279 recetas, 25 vecinos, 5 invasiones y 62 logros, con 768 sprites, iconos
+Contenido actual: 20 zonas (16 fijas + los 4 pilares del evento), 474 objetos, 74 nodos, 132
+enemigos, 20 jefes, 279 recetas, 25 vecinos, 5 invasiones y 62 logros, con 769 sprites, iconos
 de logro y fondos de bioma.
 
 Los iconos de la pantalla de logros son **las ilustraciones reales de los logros de Terraria**

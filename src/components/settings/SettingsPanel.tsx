@@ -10,6 +10,8 @@ import { Panel } from '../shared/Panel';
 /** Ajustes agrupados: primero lo que se ve, luego lo que juega por ti. */
 const GROUPS: Array<{
   title: string;
+  /** Linea fija, para lo que el juego hace siempre y no se puede cambiar. */
+  note?: string;
   toggles: Array<{ key: keyof SettingsSave; label: string; hint: string }>;
 }> = [
   {
@@ -39,12 +41,8 @@ const GROUPS: Array<{
   },
   {
     title: 'Automatico',
+    note: `Autoclicker: ${AUTO_CLICKS_PER_SECOND} clicks por segundo sobre el objetivo de la zona, siempre encendido. Tus clicks suman encima, y los dos cuentan en las estadisticas.`,
     toggles: [
-      {
-        key: 'autoClick',
-        label: `Autoclicker (${AUTO_CLICKS_PER_SECOND} por segundo)`,
-        hint: 'Pica el objetivo de la zona solo. Los clicks cuentan en las estadisticas.',
-      },
       {
         key: 'autoBattle',
         label: 'Autocombate en bossfights',
@@ -66,6 +64,7 @@ export function SettingsPanel() {
       {GROUPS.map((group) => (
         <Panel key={group.title} title={group.title}>
           <div className="col">
+            {group.note ? <p className="note">{group.note}</p> : null}
             {group.toggles.map((toggle) => (
               <label key={toggle.key} className="row toggle">
                 <input

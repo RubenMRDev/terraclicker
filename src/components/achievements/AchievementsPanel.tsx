@@ -70,7 +70,7 @@ export function AchievementsPanel() {
           a.progress.current / Math.max(1, a.progress.target),
       );
     return (
-      <Panel title="Logros" aside={`${g.achievements.completed}/${g.achievements.total}`}>
+      <Panel aside={`${g.achievements.completed}/${g.achievements.total}`}>
         <Filters filter={filter} onChange={setFilter} />
         <div className="grid grid--wide">
           {pending.map((view) => (
@@ -90,7 +90,7 @@ export function AchievementsPanel() {
   }
 
   return (
-    <Panel title="Logros" aside={`${g.achievements.completed}/${g.achievements.total}`}>
+    <Panel aside={`${g.achievements.completed}/${g.achievements.total}`}>
       <Filters filter={filter} onChange={setFilter} />
 
       {listed.length === 0 ? (
