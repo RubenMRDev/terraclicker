@@ -1,0 +1,8 @@
+# El repo se guarda en LF; git normaliza al hacer checkout en Windows.
+* text=auto eol=lf
+
+# Binarios, tal cual.
+*.png binary
+*.gif binary
+*.jpg binary
+*.woff2 binary
