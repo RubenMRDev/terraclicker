@@ -1,5 +1,8 @@
 # TerraClicker
 
+**Jugar: [terraclicker-eta.vercel.app](https://terraclicker-eta.vercel.app/)**
+
+
 Un clicker/idle incremental con la progresión, los materiales y los jefes de **Terraria**,
 construido con React + TypeScript. La estructura sigue la de
 [pokeclicker](https://github.com/pokeclicker/pokeclicker): lógica de juego en clases planas
@@ -23,7 +26,8 @@ npm run assets     # descarga los sprites de la wiki a public/assets (ya vienen 
 npm run dev
 ```
 
-`npm run build` genera `dist/` (estático, se puede servir desde cualquier sitio).
+`npm run build` genera `dist/` (estático, se puede servir desde cualquier sitio). El despliegue
+de Vercel se hace solo con cada push a `main`.
 
 ## Cómo se juega
 
