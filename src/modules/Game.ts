@@ -178,17 +178,18 @@ export class Game {
   }
 
   /**
-   * Autoclicker y autocombate. En la zona el autoclicker esta siempre encendido
-   * a AUTO_CLICKS_PER_SECOND y no hay ajuste que lo apague: picar piedra a mano
-   * no es la parte interesante del juego, y el click manual suma encima.
+   * Autoclicker y autocombate, los dos a AUTO_CLICKS_PER_SECOND. El de zona
+   * viene encendido (picar piedra a mano no es la parte interesante) y el de
+   * bossfight apagado, porque ahi lo automatico no solo pega: tambien se bebe
+   * tus pociones y te puede dejar a medias contra el Senor de la Luna, que si
+   * te mata te repite el evento entero. Los dos se pueden cambiar en Ajustes.
    *
-   * En una bossfight sigue siendo opcion, apagada por defecto, porque ahi lo
-   * automatico no solo pega: tambien se bebe tus pociones y te puede dejar a
-   * medias contra el Senor de la Luna, que si te mata te repite el evento.
+   * El click manual suma encima del automatico, siempre.
    */
   private tickAutoClick(deltaMs: number): void {
     const fighting = this.bosses.isFighting;
-    if (fighting && !this.save.settings.autoBattle) {
+    const enabled = fighting ? this.save.settings.autoBattle : this.save.settings.autoClick;
+    if (!enabled) {
       this.autoClickCarry = 0;
       return;
     }
@@ -200,8 +201,11 @@ export class Game {
     if (clicks <= 0) return;
     this.autoClickCarry -= clicks;
     for (let i = 0; i < clicks; i += 1) {
-      if (fighting) this.bosses.click(randomInt(30, 70), randomInt(30, 70));
-      else this.battle.click(randomInt(20, 80), randomInt(20, 80));
+      // Cerca del objetivo, no por toda la pantalla. Con 20 clicks por segundo
+      // y numeritos que viven 780 ms hay quince en pantalla a la vez: repartidos
+      // al azar por la ventana entera tapaban el HUD y parecian una averia.
+      if (fighting) this.bosses.click(randomInt(44, 56), randomInt(42, 58));
+      else this.battle.click(randomInt(44, 56), randomInt(34, 50));
     }
   }
 

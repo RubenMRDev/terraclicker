@@ -12,6 +12,12 @@ export interface SettingsSave {
   showDamageNumbers: boolean;
   showLootFeed: boolean;
   autoTravelOnUnlock: boolean;
+  /**
+   * Autoclicker de zona, a AUTO_CLICKS_PER_SECOND. Encendido por defecto porque
+   * picar piedra a mano no es la parte interesante, pero se puede apagar: hay
+   * quien quiere el juego a mano y quien lo deja corriendo.
+   */
+  autoClick: boolean;
   /** Autocombate en bossfights: pega solo y bebe pociones. */
   autoBattle: boolean;
   /** Animaciones de los paneles. Se puede apagar si molestan. */
@@ -37,6 +43,7 @@ export const DEFAULT_SETTINGS: SettingsSave = {
   showDamageNumbers: true,
   showLootFeed: true,
   autoTravelOnUnlock: false,
+  autoClick: true,
   autoBattle: false,
   animations: true,
 };

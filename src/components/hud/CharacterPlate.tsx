@@ -21,7 +21,7 @@ import { Sprite } from '../shared/Sprite';
  * desaparece: cambia de sitio.
  */
 export function CharacterPlate() {
-  const g = useGameChannel(['player', 'inventory', 'npcs']);
+  const g = useGameChannel(['player', 'inventory', 'npcs', 'settings']);
   const narrow = useNarrow();
   const [open, setOpen] = useState(false);
   const stats = g.player.stats;
@@ -56,9 +56,15 @@ export function CharacterPlate() {
     <dl className="readout">
       <Stat icon="Copper_Broadsword" label="Dano" value={formatNumber(stats.clickDamage)} strong />
       <Stat icon="Drax" label="DPS" value={formatNumber(stats.autoDps)} strong />
-      {/* El autoclicker va siempre: si no se dice aqui, el jugador no sabe de
-          donde sale el dano que cae sin que el toque nada. */}
-      <Stat icon="Feral_Claws" label="Auto" value={`${AUTO_CLICKS_PER_SECOND} clicks/s`} />
+      {/* Si el autoclicker esta picando, aqui se dice: si no, el jugador no sabe
+          de donde sale el dano que cae sin que el toque nada. */}
+      <Stat
+        icon="Feral_Claws"
+        label="Auto"
+        value={
+          g.save.settings.autoClick ? `${AUTO_CLICKS_PER_SECOND} clicks/s` : 'apagado'
+        }
+      />
       <Stat icon="Copper_Pickaxe" label="Pico" value={String(stats.pickPower)} />
       <Stat icon="Copper_Axe" label="Hacha" value={String(stats.axePower)} />
       <Stat icon="Iron_Chainmail" label="Defensa" value={String(stats.defense)} />

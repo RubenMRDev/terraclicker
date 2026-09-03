@@ -41,8 +41,13 @@ const GROUPS: Array<{
   },
   {
     title: 'Automatico',
-    note: `Autoclicker: ${AUTO_CLICKS_PER_SECOND} clicks por segundo sobre el objetivo de la zona, siempre encendido. Tus clicks suman encima, y los dos cuentan en las estadisticas.`,
+    note: 'Tus clicks suman encima de los automaticos, y los dos cuentan en las estadisticas y en los logros.',
     toggles: [
+      {
+        key: 'autoClick',
+        label: `Autoclicker (${AUTO_CLICKS_PER_SECOND} clicks por segundo)`,
+        hint: 'Pica solo el objetivo de la zona. Encendido de fabrica.',
+      },
       {
         key: 'autoBattle',
         label: 'Autocombate en bossfights',

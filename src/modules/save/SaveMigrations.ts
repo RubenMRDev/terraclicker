@@ -22,9 +22,10 @@ const migrations: Record<number, Migration> = {
   // v3 -> v4: llegan las invasiones y los ajustes de autoclicker. Todo tiene
   // valor por defecto, asi que basta con marcar la version.
   3: (save) => ({ ...save, version: 4 }),
-  // v4 -> v5: el autoclicker de zona pasa a estar siempre encendido, asi que su
-  // ajuste desaparece. Se quita del save para no dejar una clave muerta que
-  // luego parezca que sigue haciendo algo.
+  // v4 -> v5: el autoclicker de zona pasa a venir encendido de fabrica. Se
+  // borra el valor viejo para que una partida que lo tenia apagado (que era el
+  // valor por defecto de antes, no una eleccion) coja el nuevo por defecto.
+  // Quien lo apague a partir de ahora, se queda apagado.
   4: (save) => {
     const settings = { ...((save.settings as Record<string, unknown>) ?? {}) };
     delete settings.autoClick;

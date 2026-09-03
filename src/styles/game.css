@@ -233,7 +233,13 @@ img {
   height: 208px;
 }
 
-.world__sprite {
+/*
+ * Doble clase a proposito: .sprite lleva su propia sombra de 2 px y va mas
+ * abajo en el fichero, asi que con un solo .world__sprite ganaba ella y la
+ * sombra grande del objetivo no se veia nunca. Es la que lo separa del fondo
+ * desenfocado, o sea justo el efecto que sostiene la pantalla.
+ */
+.sprite.world__sprite {
   /* Clava el sprite al suelo de la peana y lo mete dentro si no cabe. */
   max-width: 100%;
   max-height: 100%;
@@ -604,6 +610,7 @@ img {
 }
 
 .chapa--gear {
+  flex-wrap: wrap;
   gap: 4px;
   padding: 4px 8px;
   cursor: pointer;
@@ -768,6 +775,15 @@ img {
   justify-content: space-between;
 }
 
+/* El recuento de zonas cede sitio a la chapa antes que empujarla fuera. */
+.dock--compact .faint {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dock--modal {
   background: transparent;
   border: 0;
@@ -831,7 +847,7 @@ img {
    * unico que cabe sin scroll.
    */
   .hud {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'right'
@@ -840,6 +856,18 @@ img {
     padding: 8px;
     gap: 6px;
   }
+  /*
+   * Un hijo de grid o de flex no baja de su ancho minimo de contenido salvo que
+   * se le diga, y una fila de chapas que no parte suma mas que un movil estrecho.
+   * Sin este min-width: 0 la columna se ensanchaba por encima de la pantalla y
+   * overflow: hidden recortaba el HUD por la derecha en vez de dejarlo caber:
+   * es lo que se veia en un S25 (360 px de ancho, filas de 370).
+   */
+  .hud__left,
+  .hud__right,
+  .hud__bottom {
+    min-width: 0;
+  }
   .hud__right {
     align-items: stretch;
     gap: 6px;
@@ -847,9 +875,11 @@ img {
   .hud__left {
     align-self: start;
   }
+  /* Que parta en dos lineas antes que salirse: el texto no se puede encoger. */
   .strip {
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 5px;
   }
   .chapa {
     font-size: 12px;
@@ -865,10 +895,16 @@ img {
   .plate--char {
     width: auto;
   }
+  /*
+   * Diez destinos en horizontal no caben en 320 px, asi que el rail parte en dos
+   * filas antes que recortarse. En un movil normal (>=390 px) sigue entrando de
+   * una, y en el mas estrecho el boton no se hace mas pequeno de la cuenta.
+   */
   .rail {
     flex-direction: row;
-    justify-content: space-between;
-    gap: 2px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3px;
     padding: 4px;
   }
   .rail__btn {
